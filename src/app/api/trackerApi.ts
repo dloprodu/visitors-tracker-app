@@ -1,6 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import axios, { Axios } from 'axios';
 
+import ClientInfo from 'app/util/clientInfo';
+
 import Guest from './models/guest';
 
 import IPStackAPI from './ipStackApi';
@@ -61,8 +63,8 @@ export default class TrackerApi {
     const guest: Guest = {
       ip: data.ip,
       ipType: data.type,
-      userAgent: '',
-      platform: '',
+      userAgent: ClientInfo.browser,
+      platform: ClientInfo.platform,
       language: navigator.language,
       country: data.country_code,
       countryName: data.country_name,
