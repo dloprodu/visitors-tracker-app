@@ -1,0 +1,15 @@
+export default interface Guest {
+  ip: string,
+  lastVisit?: string,
+  visits?: number,
+  ipType: string,
+  userAgent: string,
+  platform: string,
+  language: string,
+  country: string,
+  countryName: string,
+  continent: string,
+  continentName: string,
+  region: string,
+  regionName: string,
+}

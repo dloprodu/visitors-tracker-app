@@ -1,0 +1,39 @@
+@import-normalize; /* bring in normalize.css styles */
+
+html,
+body,
+div#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #202020;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Chrome, Edge, Safary */
+::-webkit-scrollbar {
+  width: 10px;                       /* width of the entire scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: whitesmoke;         /* color of the tracking area */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: lightgray;    /* color of the scroll thumb */
+  border-radius: 16px;              /* roundness of the scroll thumb */
+  border: 3px solid whitesmoke;   /* creates padding around scroll thumb */
+}
