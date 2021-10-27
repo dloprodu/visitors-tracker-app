@@ -4,6 +4,7 @@ import axios, { Axios } from 'axios';
 import ClientInfo from 'app/util/clientInfo';
 
 import Guest from './models/guest';
+import PagesResponse from './models/pagedResponse';
 
 import IPStackAPI from './ipStackApi';
 
@@ -74,7 +75,7 @@ export default class TrackerApi {
       continentName: data.continent_name
     }
 
-    const url = `/tracker/visit`;
+    const url = `/visit`;
     const res = await this._axios.post<Guest>(url, guest);
     return res.data;
   }
@@ -86,15 +87,15 @@ export default class TrackerApi {
    * @param limit
    * @return {AxiosPromise<Comic[]>}
    */
-  async fetchGuests(params?: GuestQueryParams): Promise<Guest[]> {
+  async fetchGuests(params?: GuestQueryParams): Promise<PagesResponse<Guest>> {
     const query = Object
       .keys(params ?? {})
       .filter(key => !!(params as any)[key])
       .map(key => `${key}=${(params as any)[key]}`)
       .join('&')
 
-    const url = `/tracker/visit?${query}`;
-    const res = await this._axios.get<Guest[]>(url);
+    const url = `/visits/show?${query}`;
+    const res = await this._axios.get<PagesResponse<Guest>>(url);
     return res.data;
   }
 

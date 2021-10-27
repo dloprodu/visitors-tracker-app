@@ -2,13 +2,13 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import TrackerApi, { Guest, GuestQueryParams } from 'app/api';
+import TrackerApi, { Guest, GuestQueryParams, PagedResponse } from 'app/api';
 
 import { StatusType } from '../statusType';
 
 export interface GuestsState {
   status: StatusType,
-  list: Guest[],
+  list: PagedResponse<Guest>,
   errorMessage?: string;
 }
 
@@ -24,7 +24,7 @@ export const guestsSlice = createSlice({
   name: 'guests',
   initialState: <GuestsState>{
     status: 'idle',
-    list: []
+    list: { total: 0, result: [] }
   },
   reducers: {
   },
