@@ -14,6 +14,7 @@ export interface GuestsState {
 }
 
 export const fetchGuests = createAsyncThunk('guests/fetchGuests', async (params?: GuestQueryParams) => {
+
   const result = await TrackerApi
     .getInstance()
     .fetchGuests(params);

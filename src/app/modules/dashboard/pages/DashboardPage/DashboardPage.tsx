@@ -19,12 +19,12 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchGuests());
+      dispatch(fetchGuests({ offset: 0, limit: 20 }));
     }
   }, [status, dispatch]);
 
   const onFilterChange = (value: GuestFilterParams) => {
-    dispatch(fetchGuests( { userAgent: value.userAgent, platform: value.platform } ));
+    dispatch(fetchGuests( { offset: 0, limit: 20, userAgent: value.userAgent, platform: value.platform } ));
   }
 
   return (
