@@ -12,17 +12,19 @@ import { GuestFilterParams } from '../../components/GuestFilter/GuestFilter';
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
+  
   const status = useSelector<RootState, StatusType>(state => state.guests.status);
+  const isFirstLoad = useSelector<RootState, boolean>(state => state.guests.isFirstLoad);
   const guests = useSelector(selectAllGuests);
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchGuests())
+      dispatch(fetchGuests());
     }
   }, [status, dispatch]);
 
   const onFilterChange = (value: GuestFilterParams) => {
-    console.log(value);
+    dispatch(fetchGuests( { userAgent: value.userAgent, platform: value.platform } ));
   }
 
   return (
@@ -34,7 +36,7 @@ export default function DashboardPage() {
       justifyContent: 'center',
       overflowY: 'auto'
     }}>
-      {status === 'loading' 
+      {status === 'loading' && isFirstLoad
         ? 
           <Box sx={{
             marginTop: '2rem',
@@ -52,7 +54,7 @@ export default function DashboardPage() {
             flexDirection: 'column'
           }}>
             <GuestFilter onFilterChange={onFilterChange} />
-            <GuestGrid guests={guests} />
+            <GuestGrid guests={guests} loading={status === 'loading'} />
           </Box>
       }
     </Box>

@@ -37,7 +37,7 @@ export const registerSlice = createSlice({
         state.guest = action.payload;
       })
       .addCase(registerGuest.rejected, (state, action) => {
-        state.status = 'failed'
+        state.status = 'failed';
         state.errorMessage = action.error.message;
       })
   }

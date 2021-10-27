@@ -7,6 +7,7 @@ import TrackerApi, { Guest, GuestQueryParams, PagedResponse } from 'app/api';
 import { StatusType } from '../statusType';
 
 export interface GuestsState {
+  isFirstLoad: boolean,
   status: StatusType,
   list: PagedResponse<Guest>,
   errorMessage?: string;
@@ -23,6 +24,7 @@ export const fetchGuests = createAsyncThunk('guests/fetchGuests', async (params?
 export const guestsSlice = createSlice({
   name: 'guests',
   initialState: <GuestsState>{
+    isFirstLoad: true,
     status: 'idle',
     list: { total: 0, result: [] }
   },
@@ -31,16 +33,18 @@ export const guestsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchGuests.pending, (state, action) => {
-        state.status = 'loading'
+        state.status = 'loading';
       })
       .addCase(fetchGuests.fulfilled, (state, action) => {
-        state.status = 'succeeded'
+        state.status = 'succeeded';
         // Add any fetched posts to the array
         state.list = action.payload;
+        state.isFirstLoad = false;
       })
       .addCase(fetchGuests.rejected, (state, action) => {
-        state.status = 'failed'
+        state.status = 'failed';
         state.errorMessage = action.error.message;
+        state.isFirstLoad = false;
       })
   }
 })

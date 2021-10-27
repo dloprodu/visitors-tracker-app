@@ -6,7 +6,7 @@ import { Box, Button, FormControl, InputLabel, Select, SelectChangeEvent, MenuIt
 
 export interface GuestFilterParams {
   platform: string,
-  browser: string
+  userAgent: string
 }
 
 interface GuestFilterProps {
@@ -16,7 +16,7 @@ interface GuestFilterProps {
 export default function GuestFilter({
   onFilterChange = () => {},
 }: GuestFilterProps) {
-  const [filter, setFilter] = React.useState<GuestFilterParams>({ platform: '', browser: '' });
+  const [filter, setFilter] = React.useState<GuestFilterParams>({ platform: '', userAgent: '' });
 
   const onPlatformChangeHandler = (event: SelectChangeEvent) => {
     const { value } = event.target;
@@ -27,13 +27,13 @@ export default function GuestFilter({
 
   const onBrowserChangeHandler = (event: SelectChangeEvent) => {
     const { value } = event.target;
-    const newFilter = { ...filter, ...{ browser: value } };
+    const newFilter = { ...filter, ...{ userAgent: value } };
     setFilter(newFilter);
     onFilterChange(newFilter);
   };
 
   const onResetHandler = () => {
-    const newFilter: GuestFilterParams = { platform: '', browser: '' };
+    const newFilter: GuestFilterParams = { platform: '', userAgent: '' };
     setFilter(newFilter);
     onFilterChange(newFilter);
   }
@@ -69,7 +69,7 @@ export default function GuestFilter({
         <Select
           labelId="select-browser-label"
           id="select-browser"
-          value={filter.browser}
+          value={filter.userAgent}
           onChange={onBrowserChangeHandler}
           label="Browser"
         >
