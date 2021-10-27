@@ -43,7 +43,7 @@ export enum BrowserType {
   /**
    * Opera.
    */
-  Opera = 'opeara',
+  Opera = 'opera',
 
   /**
    * Safari.

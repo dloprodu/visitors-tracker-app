@@ -8,6 +8,7 @@ import { StatusType } from 'app/redux/statusType';
 import { RootState } from 'app/store';
 
 import { GuestGrid, GuestFilter } from '../../components';
+import { GuestFilterParams } from '../../components/GuestFilter/GuestFilter';
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ export default function DashboardPage() {
     }
   }, [status, dispatch]);
 
+  const onFilterChange = (value: GuestFilterParams) => {
+    console.log(value);
+  }
+
   return (
     <Box sx={{
       height: '100%',
@@ -31,18 +36,22 @@ export default function DashboardPage() {
     }}>
       {status === 'loading' 
         ? 
-          <>
+          <Box sx={{
+            marginTop: '2rem',
+            width: 200,
+            height: 200,
+          }}>
             <Skeleton />
             <Skeleton />
             <Skeleton />
-          </>
+          </Box>
         : 
           <Box sx={{
             height: '100%',
             display: 'flex',
             flexDirection: 'column'
           }}>
-            <GuestFilter />
+            <GuestFilter onFilterChange={onFilterChange} />
             <GuestGrid guests={guests} />
           </Box>
       }
