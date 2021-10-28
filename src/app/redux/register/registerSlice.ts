@@ -46,7 +46,6 @@ export const registerSlice = createSlice({
 // Action creators are generated for each case reducer function
 // export const { action } = charactersSlice.actions;
 
-
 export const selectGuest = (state: { register: RegisterState }) => state.register.guest;
 
 export default registerSlice.reducer;

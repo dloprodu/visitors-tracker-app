@@ -4,6 +4,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import TrackerApi, { Guest, GuestQueryParams, PagedResponse } from 'app/api';
 
+import buildChart, { ChartItemType } from './chart-utils';
+
 import { StatusType } from '../statusType';
 
 export interface GuestsState {
@@ -11,10 +13,13 @@ export interface GuestsState {
   status: StatusType,
   list: PagedResponse<Guest>,
   errorMessage?: string;
+  charts: {
+    platforms: ChartItemType[]
+    browsers: ChartItemType[]
+  }
 }
 
 export const fetchGuests = createAsyncThunk('guests/fetchGuests', async (params?: GuestQueryParams) => {
-
   const result = await TrackerApi
     .getInstance()
     .fetchGuests(params);
@@ -27,7 +32,11 @@ export const guestsSlice = createSlice({
   initialState: <GuestsState>{
     isFirstLoad: true,
     status: 'idle',
-    list: { total: 0, result: [] }
+    list: { total: 0, result: [] },
+    charts: {
+      platforms: [],
+      browsers: [],
+    }
   },
   reducers: {
   },
@@ -41,6 +50,9 @@ export const guestsSlice = createSlice({
         // Add any fetched posts to the array
         state.list = action.payload;
         state.isFirstLoad = false;
+
+        state.charts.browsers = buildChart(action.payload.result, 'userAgent');
+        state.charts.platforms = buildChart(action.payload.result, 'platform');
       })
       .addCase(fetchGuests.rejected, (state, action) => {
         state.status = 'failed';
@@ -52,7 +64,5 @@ export const guestsSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 // export const { action } = charactersSlice.actions;
-
-export const selectAllGuests = (state: { guests: GuestsState }) => state.guests.list;
 
 export default guestsSlice.reducer;

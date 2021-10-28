@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { Alert, Box, Button, Card, CardContent, CardActions, Typography, Skeleton } from '@mui/material';
 
-import { registerGuest, selectGuest } from 'app/redux/register/registerSlice';
-import { StatusType } from 'app/redux/statusType';
-
-import { RootState } from 'app/store';
 import { useAppSelector } from 'app/hooks';
+import { registerGuest } from 'app/redux/register/registerSlice';
 
+/**
+ * Register page that track the guest data and show the link
+ * to show the all the visits.
+ */
 export default function RegisterPage() {
   const dispatch = useDispatch();
-  const status = useSelector<RootState, StatusType>(state => state.register.status);
-  const guest = useSelector(selectGuest);
+  const status = useAppSelector(state => state.register.status);
+  const guest = useAppSelector(state => state.register.guest);
   const error = useAppSelector(state => state.register.errorMessage);
 
   const history = useHistory();

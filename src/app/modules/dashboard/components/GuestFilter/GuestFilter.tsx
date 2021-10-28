@@ -13,6 +13,9 @@ interface GuestFilterProps {
   onFilterChange?: (value: GuestFilterParams) => void;
 }
 
+/**
+ * Filter component that defines the available filters for the guest grid.
+ */
 export default function GuestFilter({
   onFilterChange = () => {},
 }: GuestFilterProps) {

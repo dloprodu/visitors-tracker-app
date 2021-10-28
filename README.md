@@ -1,7 +1,3 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Available Scripts
 
 In the project directory, you can run:
@@ -47,6 +43,8 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 # Packages
 
+The projects uses Redux, Typescript, Routing with lazy module load and ESLint with Prettier.
+
 ## Template - TypeScript
 
 npx create-react-app my-app --template typescript
@@ -62,9 +60,3 @@ npx create-react-app my-app --template typescript
 ## Dev Environments
 
 .env
-
-## RxJS
-## Redux & Repositories / Services
-## i18n
-## Repositories / Services
-## ESLint
