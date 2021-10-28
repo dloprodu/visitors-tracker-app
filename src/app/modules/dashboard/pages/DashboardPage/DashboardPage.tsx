@@ -18,16 +18,25 @@ export default function DashboardPage() {
   const status = useAppSelector(state => state.guests.status);
   const isFirstLoad = useAppSelector(state => state.guests.isFirstLoad);
   const chartData = useAppSelector(state => state.guests.charts);
-  const guests = useAppSelector(state => state.guests.list);
+  const data = useAppSelector(state => state.guests.data);
+  const query = useAppSelector(state => state.guests.queryParams);
 
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchGuests({ offset: 0, limit: 20 }));
+      dispatch(fetchGuests({ offset: query.offset, limit: query.limit }));
     }
   }, [status, dispatch]);
 
   const onFilterChange = (value: GuestFilterParams) => {
-    dispatch(fetchGuests( { offset: 0, limit: 20, userAgent: value.userAgent, platform: value.platform } ));
+    dispatch(fetchGuests( { offset: 0, limit: query.limit, userAgent: value.userAgent, platform: value.platform } ));
+  }
+
+  const onPageChangeHandler = (newPage: number) => {
+    dispatch(fetchGuests( {...query, ...{ offset: newPage }} ));
+  }
+
+  const onPerPageChangeHandler = (newPerPage: number) => {
+    dispatch(fetchGuests( {...query, ...{ offset: 0, limit: newPerPage }} ));
   }
 
   return (
@@ -57,7 +66,14 @@ export default function DashboardPage() {
             flexDirection: 'column'
           }}>
             <GuestFilter onFilterChange={onFilterChange} />
-            <GuestGrid guests={guests} loading={status === 'loading'} />
+            <GuestGrid
+              data={data}
+              loading={status === 'loading'}
+              page={query.offset ?? 0}
+              perPage={query.limit ?? 20}
+              onPageChange={onPageChangeHandler}
+              onPerPageChange={onPerPageChangeHandler}
+              />
             {status === 'succeeded' && 
               <Box sx={{ display: 'flex', height: 100 }}>
                 <Doughnut title="Platforms" items={chartData.platforms} />

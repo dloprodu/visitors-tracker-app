@@ -11,20 +11,21 @@ import { StatusType } from '../statusType';
 export interface GuestsState {
   isFirstLoad: boolean,
   status: StatusType,
-  list: PagedResponse<Guest>,
-  errorMessage?: string;
+  queryParams: GuestQueryParams,
+  data: PagedResponse<Guest>,
   charts: {
     platforms: ChartItemType[]
     browsers: ChartItemType[]
-  }
+  },
+  errorMessage?: string;
 }
 
-export const fetchGuests = createAsyncThunk('guests/fetchGuests', async (params?: GuestQueryParams) => {
-  const result = await TrackerApi
+export const fetchGuests = createAsyncThunk('guests/fetchGuests', async (params: GuestQueryParams) => {
+  const data = await TrackerApi
     .getInstance()
     .fetchGuests(params);
 
-  return result;
+  return { data, queryParams: params };
 })
 
 export const guestsSlice = createSlice({
@@ -32,7 +33,11 @@ export const guestsSlice = createSlice({
   initialState: <GuestsState>{
     isFirstLoad: true,
     status: 'idle',
-    list: { total: 0, result: [] },
+    queryParams: {
+      offset: 0,
+      limit: 20,
+    },
+    data: { total: 0, result: [] },
     charts: {
       platforms: [],
       browsers: [],
@@ -48,11 +53,14 @@ export const guestsSlice = createSlice({
       .addCase(fetchGuests.fulfilled, (state, action) => {
         state.status = 'succeeded';
         // Add any fetched posts to the array
-        state.list = action.payload;
+        const { data, queryParams } = action.payload;
+
+        state.data = data;
+        state.queryParams = queryParams;
         state.isFirstLoad = false;
 
-        state.charts.browsers = buildChart(action.payload.result, 'userAgent');
-        state.charts.platforms = buildChart(action.payload.result, 'platform');
+        state.charts.browsers = buildChart(data.result, 'userAgent');
+        state.charts.platforms = buildChart(data.result, 'platform');
       })
       .addCase(fetchGuests.rejected, (state, action) => {
         state.status = 'failed';

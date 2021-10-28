@@ -1,21 +1,56 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
-import { Paper, Skeleton, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import React from 'react';
+
+import {
+  Paper,
+  Skeleton,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  TablePagination
+} from '@mui/material';
 
 import { Guest, PagedResponse } from 'app/api';
 
 interface GuestGridProps {
-  guests: PagedResponse<Guest>;
+  data: PagedResponse<Guest>;
+  page: number;
+  perPage: number;
   loading: boolean;
+  onPageChange: (value: number) => void,
+  onPerPageChange: (value: number) => void
 }
 
 /**
  * Guest grid component.
  */
-export default function GuestGrid( { guests, loading }: GuestGridProps ) {
+export default function GuestGrid( {
+  data,
+  loading,
+  page = 0,
+  perPage = 20,
+  onPageChange = () => {},
+  onPerPageChange = () => {}
+}: GuestGridProps ) {
+
+  // eslint-disable-next-line no-unused-vars
+  const handleChangePage = (event: unknown, newPage: number) => {
+    onPageChange(newPage);
+  };
+
+  // eslint-disable-next-line no-unused-vars
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onPerPageChange(parseInt(event.target.value, 10));
+  };
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 400 }} component={Paper}>
-        <Table stickyHeader  size="small">
+        <Table stickyHeader size="small">
           <TableHead>
             <TableRow>
               <TableCell>Guest IP</TableCell>
@@ -30,7 +65,7 @@ export default function GuestGrid( { guests, loading }: GuestGridProps ) {
           </TableHead>
           <TableBody>
             {!loading 
-              ? guests?.result?.map((row) => (
+              ? data?.result?.map((row) => (
                 <TableRow
                   key={row.ip}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -69,6 +104,15 @@ export default function GuestGrid( { guests, loading }: GuestGridProps ) {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 20, 50, 100]}
+        component="div"
+        count={data.total}
+        rowsPerPage={perPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Paper>
   )
 }

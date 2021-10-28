@@ -64,8 +64,8 @@ export default function Doughnut( { title, items = [] }: DoughnutProps ) {
   return (
     <div style={{
       position: 'relative',
-      height: 400,
-      width: 400
+      height: 360,
+      width: 360
     }}>
       <canvas ref={canvasRef} />
     </div>
