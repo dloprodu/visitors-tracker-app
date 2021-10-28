@@ -1,3 +1,21 @@
+# Visitors Tracker App
+
+React App that tracks the visits. The app uses Redux, Typescript, Routing with lazy load and ESLint with Prettier.
+
+[https://visitors-tracker-app.azurewebsites.net](https://visitors-tracker-app.azurewebsites.net)
+
+## Template - TypeScript
+
+npx create-react-app my-app --template typescript
+
+## Routing
+
+[React Router](https://reactrouter.com/web/guides/quick-start)
+
+## UI Library
+
+[MUI Material](https://mui.com)
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -41,22 +59,3 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-# Packages
-
-The projects uses Redux, Typescript, Routing with lazy module load and ESLint with Prettier.
-
-## Template - TypeScript
-
-npx create-react-app my-app --template typescript
-
-## Routing
-
-[React Router](https://reactrouter.com/web/guides/quick-start)
-
-## UI Library
-
-[MUI Material](https://mui.com)
-
-## Dev Environments
-
-.env
