@@ -38,12 +38,11 @@ export default function GuestGrid( {
 }: GuestGridProps ) {
 
   // eslint-disable-next-line no-unused-vars
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const onPageChangeHandler = (event: unknown, newPage: number) => {
     onPageChange(newPage);
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onRowsPerPageChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     onPerPageChange(parseInt(event.target.value, 10));
   };
 
@@ -110,8 +109,8 @@ export default function GuestGrid( {
         count={data.total}
         rowsPerPage={perPage}
         page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        onPageChange={onPageChangeHandler}
+        onRowsPerPageChange={onRowsPerPageChangeHandler}
       />
     </Paper>
   )
