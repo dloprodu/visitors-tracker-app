@@ -28,7 +28,7 @@ export default function RegisterPage() {
 
   const card = (
     <>
-      <CardContent>
+      <CardContent data-testid="guest-data">
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Your Data
         </Typography>

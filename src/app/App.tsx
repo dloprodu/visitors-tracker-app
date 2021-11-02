@@ -33,7 +33,7 @@ export default class App extends Component<Props> {
           flexDirection: 'column',
           height: '100%'
         }}>
-          <AppBar color="secondary" position="static" >
+          <AppBar data-testid="main-header" color="secondary" position="static"  >
             <Toolbar variant="dense">
               <Typography variant="h6" color="inherit" component="div">
                 <FontAwesomeIcon icon={faLowVision} /> Visitors Tracker

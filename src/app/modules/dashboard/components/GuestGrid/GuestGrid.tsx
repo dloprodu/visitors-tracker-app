@@ -47,7 +47,7 @@ export default function GuestGrid( {
   };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper data-testid="guest-grid" sx={{ width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{ maxHeight: 400 }} component={Paper}>
         <Table stickyHeader size="small">
           <TableHead>
