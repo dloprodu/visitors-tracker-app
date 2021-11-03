@@ -2,7 +2,7 @@
 
 React App that tracks the visits. The app uses Redux, Typescript, Routing with lazy load and ESLint with Prettier.
 
-[https://visitors-tracker-app.azurewebsites.net](https://visitors-tracker-app.azurewebsites.net)
+[http://visitors-tracker-app.azurewebsites.net](http://visitors-tracker-app.azurewebsites.net)
 
 ## Template - TypeScript
 

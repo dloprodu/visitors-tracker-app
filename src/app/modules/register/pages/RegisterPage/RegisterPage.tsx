@@ -15,7 +15,7 @@ export default function RegisterPage() {
   const dispatch = useDispatch();
   const status = useAppSelector(state => state.register.status);
   const guest = useAppSelector(state => state.register.guest);
-  const error = useAppSelector(state => state.register.errorMessage);
+  const errorMessage = useAppSelector(state => state.register.errorMessage);
 
   const history = useHistory();
   const onClick = () => history.push('/visits');
@@ -55,6 +55,23 @@ export default function RegisterPage() {
     </>
   );
 
+  const error = (
+    <>
+      <Alert severity="error">{errorMessage}</Alert>
+      <CardContent data-testid="guest-error">
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          We could not track your IP
+        </Typography>
+        <Typography variant="body2">
+          Use HTTP instead of HTTPS
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" onClick={onClick}>Show Visits</Button>
+      </CardActions>
+    </>
+  );
+
   return (
     <>
       <Box sx={{
@@ -78,7 +95,7 @@ export default function RegisterPage() {
               </>
           }
           {status === 'failed'
-            && <Alert severity="error">{error}</Alert>}
+            && <Card variant="outlined">{error}</Card>}
           {status === 'succeeded'
             && <Card variant="outlined">{card}</Card>}
         </Box>
